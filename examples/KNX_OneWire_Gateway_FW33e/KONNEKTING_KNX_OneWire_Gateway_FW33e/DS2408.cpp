@@ -1,5 +1,5 @@
 #include "DS2408.h"
-#include <arduino.h>
+#include <Arduino.h>
 #include <stdio.h>
 #include <Wire.h>
 

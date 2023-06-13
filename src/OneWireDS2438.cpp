@@ -58,7 +58,7 @@ void OneWireDS2438::loop()
                 mState = updateVAD() ? Idle : Error;
                 pDelay = millis();
                 if (mState == Idle) {
-                    // here we ensure, that each measured value 
+                    // here we ensure, that each measured value
                     // consists of all values got a the same time
                     mTemp = mTmpTemp;
                     mVAD = mTmpVAD;

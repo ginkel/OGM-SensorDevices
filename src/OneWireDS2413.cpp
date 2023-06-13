@@ -36,7 +36,7 @@ void OneWireDS2413::loop() {
             mLastValue = mValue;
             mState = SendOutput;
         case GetInput:
-            // normal read happens just if the IO is configured for Input 
+            // normal read happens just if the IO is configured for Input
             if (mIoMask) {
                 mValue = getState();
                 mLastValue = mValue;
@@ -84,7 +84,7 @@ bool OneWireDS2413::setState(uint8_t iState) {
     pBM->wireWriteByte(~iState);
     uint8_t lByte1 = pBM->wireReadByte();
     // here the check for state gets complicated
-    // the last fetched byte is not the sent byte, 
+    // the last fetched byte is not the sent byte,
     // but the state byte (as in getState)
     uint8_t lByte2 = convertStateToValue(pBM->wireReadByte());
     if (lByte1 == 0xAA && lByte2 == (iState & ~PIO_WRITE_MASK))

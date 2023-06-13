@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <arduino.h>
+#include <Arduino.h>
 #include <math.h>
 #include <DebugUtil.h>
 
@@ -97,7 +97,7 @@ void MultiSensor::init(DS2482_OneWire *ow , uint8_t *address_DS2438, uint8_t *ad
   _device = device;
   _isActive_DS18B20 = isactive_DS18B20;
   _isActive_DS2438_1 = isactive_DS2438_1;
-  _isActive_DS2438_2 = isactive_DS2438_2; 
+  _isActive_DS2438_2 = isactive_DS2438_2;
 
   widerstand1 = R1;                 // R1 Ohm
   bWert = b_Wert;                   // B- Wert vom NTC
@@ -566,7 +566,7 @@ boolean MultiSensor::update() {
   Serial.print(DS2482_OneWire::crc8(data, 8), HEX);
   Debug.println("");
 #endif
-  
+
   raw = ((data[2] << 5) | (data[1] >> 3));
   raw_amp = raw;
 
@@ -589,13 +589,13 @@ boolean MultiSensor::update() {
   //berechnet die eingelesene ADC Spannung am DS2438
   raw = (data[4] << 8 | data[3]);
   vad = (float)raw / 100;
-  
+
   //berechnet den eingelesenen Strom am DS2438
   raw = (data[6] << 8 | data[5]);
 
   // calculation LUX
   if (_dev_lux) {
-    //speichert ersten Wert in OLD um später damit den aktuellen Wert vergleichen zu können. 
+    //speichert ersten Wert in OLD um später damit den aktuellen Wert vergleichen zu können.
     if (lux_init == false) {
       Vadi =  (float)(raw * 0.2441) / 47;
       lux_old = pow(10, Vadi);
@@ -614,7 +614,7 @@ boolean MultiSensor::update() {
 
   // calculation Hum   hum = (161.29 * Vadc / VDD - 25.8065)/(1.0546 - 0.00216 * T)
   if (_dev_hum) {
-    //speichert ersten Wert in OLD um später damit den aktuellen Wert vergleichen zu können. 
+    //speichert ersten Wert in OLD um später damit den aktuellen Wert vergleichen zu können.
     if (hum_init == false) {
       mes = (float)161.29 * vad / vdd;
       mes_1 = (float)mes - 25.8065;

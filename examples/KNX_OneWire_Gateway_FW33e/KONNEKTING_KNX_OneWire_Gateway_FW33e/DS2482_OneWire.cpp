@@ -1,6 +1,6 @@
 #include "DS2482_OneWire.h"
 #include <Wire.h>
-#include <arduino.h>
+#include <Arduino.h>
 
 // Constructor with no parameters for compatability with OneWire lib
 DS2482_OneWire::DS2482_OneWire()
@@ -67,7 +67,7 @@ bool DS2482_OneWire::selectChannel(uint8_t channel)
 	Wire.write(0xc3);
 	Wire.write(ch);
 	end();
-	
+
 
 	uint8_t check = readByte();
 
@@ -97,7 +97,7 @@ uint8_t DS2482_OneWire::end()
 
 void DS2482_OneWire::writeByte(uint8_t data)
 {
-	Wire.write(data); 
+	Wire.write(data);
 }
 
 uint8_t DS2482_OneWire::readByte()
@@ -141,7 +141,7 @@ uint8_t DS2482_OneWire::readStatus()
 
 bool DS2482_OneWire::readStatusShortDet()
 {
-  //uint8_t statusBits = 
+  //uint8_t statusBits =
   return   bitRead(readStatus(), 2);
 }
 
@@ -210,14 +210,14 @@ void DS2482_OneWire::writeConfig(uint8_t config)
 	// Write the 4 bits and the complement 4 bits
 	writeByte(config | (~config)<<4);
 	end();
-	
+
 	// This should return the config bits without the complement
 	if (readByte() != config)
 		mError = DS2482_ERROR_CONFIG;
 }
 
 // Generates a 1-Wire reset/presence-detect cycle (Figure 4) at the 1-Wire line. The state
-// of the 1-Wire line is sampled at tSI and tMSP and the result is reported to the host 
+// of the 1-Wire line is sampled at tSI and tMSP and the result is reported to the host
 // processor through the Status Register, bits PPD and SD.
 uint8_t DS2482_OneWire::wireReset()
 {
@@ -266,7 +266,7 @@ uint8_t DS2482_OneWire::wireReadByte()
 }
 
 // Generates a single 1-Wire time slot with a bit value “V” as specified by the bit byte at the 1-Wire line
-// (see Table 2). A V value of 0b generates a write-zero time slot (Figure 5); a V value of 1b generates a 
+// (see Table 2). A V value of 0b generates a write-zero time slot (Figure 5); a V value of 1b generates a
 // write-one time slot, which also functions as a read-data time slot (Figure 6). In either case, the logic
 // level at the 1-Wire line is tested at tMSR and SBR is updated.
 void DS2482_OneWire::wireWriteBit(uint8_t data, uint8_t power)
@@ -333,7 +333,7 @@ uint8_t DS2482_OneWire::wireSearch(uint8_t *address)
 
 	for(uint8_t i=0;i<64;i++)
 	{
-		int searchByte = i / 8; 
+		int searchByte = i / 8;
 		int searchBit = 1 << i % 8;
 
 		if (i < searchLastDiscrepancy)
@@ -428,7 +428,7 @@ uint8_t DS2482_OneWire::crc8(const uint8_t *addr, uint8_t len)
 uint8_t DS2482_OneWire::crc8(const uint8_t *addr, uint8_t len)
 {
 	uint8_t crc = 0;
-	
+
 	while (len--) {
 		uint8_t inbyte = *addr++;
 		for (uint8_t i = 8; i; i--) {
@@ -478,11 +478,11 @@ void DS2482_OneWire::skip(void)
 	wireSkip();
 }
 
-// Write a byte. 
+// Write a byte.
 // Ignore the power bit
 void DS2482_OneWire::write(uint8_t v, uint8_t power)
 {
-	wireWriteByte(v, power);	
+	wireWriteByte(v, power);
 }
 
 // Read a byte.

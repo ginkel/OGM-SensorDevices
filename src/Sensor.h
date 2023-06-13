@@ -88,7 +88,7 @@ class Sensor
     virtual bool begin(); // first initialization, may be blocking, should be called druing setup(), not during loop()
 
   public:
-    // static 
+    // static
     static void SetWire(TwoWire &iWire);
     static Sensor* factory(uint8_t iSensorClass, MeasureType iMeasureType);
     static void sensorLoop();
@@ -98,7 +98,7 @@ class Sensor
     static void restartSensors();
     static bool beginSensors();
     static uint8_t getMaxI2cSpeed();
-    
+
     virtual uint8_t getI2cSpeed();
     virtual bool prepareTemperatureOffset(float iTempOffset);
 };

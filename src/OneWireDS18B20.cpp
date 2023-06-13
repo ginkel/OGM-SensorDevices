@@ -109,7 +109,7 @@ bool OneWireDS18B20::startConversionTemp()
 //   }
 //   celsius = (float)raw / 16.0;
 
-// } 
+// }
 
 bool OneWireDS18B20::updateTemp()
 {
