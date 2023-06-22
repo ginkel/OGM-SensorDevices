@@ -1,19 +1,20 @@
 // #include "IncludeManager.h"
 #if defined(SENSORMODULE) || defined(PMMODULE)
-#include "Sensor.h"
 #include "HardwareDevices.h"
-#include "SensorDummy.h"
-#include "SensorSHT3x.h"
+#include "Sensor.h"
 #include "SensorBME280.h"
 #include "SensorBME680.h"
+#include "SensorDummy.h"
+#include "SensorIAQCore.h"
+#include "SensorMR24xxB1.h"
+#include "SensorOPT300x.h"
 #include "SensorSCD30.h"
 #include "SensorSCD40.h"
-#include "SensorIAQCore.h"
 #include "SensorSGP30.h"
-#include "SensorOPT300x.h"
-#include "SensorVL53L1X.h"
-#include "SensorMR24xxB1.h"
+#include "SensorSHT3x.h"
 #include "SensorVEML7700.h"
+#include "SensorVL53L1X.h"
+#include "SensorLD2410.h"
 
 Sensor* newSensor(uint8_t iSensorClass, MeasureType iMeasureType) {
     Sensor* lSensor = nullptr;
@@ -63,9 +64,14 @@ Sensor* newSensor(uint8_t iSensorClass, MeasureType iMeasureType) {
 
 #endif
 #ifdef PMMODULE
-#ifdef HF_POWER_PIN
+#ifdef HF_SENSOR_MR24xxB1
         case SENS_MR24xxB1:
             lSensor = new SensorMR24xxB1(iMeasureType);
+            break;
+#endif
+#ifdef HF_SENSOR_LD2410
+        case SENS_LD2410:
+            lSensor = new SensorLD2410(iMeasureType);
             break;
 #endif
 #endif

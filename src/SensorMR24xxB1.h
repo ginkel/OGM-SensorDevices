@@ -1,7 +1,7 @@
 #pragma once
 // #include "IncludeManager.h"
 #ifdef PMMODULE
-#ifdef SERIAL_HF
+#ifdef HF_SENSOR_MR24xxB1
 #include "Sensor.h"
 
 // Radar commands, value is index to command table cCommands
@@ -79,7 +79,7 @@ class SensorMR24xxB1 : public Sensor
     uint8_t mBuffer[mBufferSize] = {0}; // message buffer
     uint8_t mBufferIndex = 0;
     PacketStates mPacketState = GET_SYNC_STATE;
-    
+
     int8_t mDefaultScenario = 0;
     int8_t mDefaultSensitivity = 8;
     uint8_t mHfSensorStartupStates = 0;

@@ -51,7 +51,7 @@ Sensor::Sensor(uint16_t iMeasureTypes, uint8_t iAddress)
 };
 
 // static
-void Sensor::SetWire(TwoWire &iWire) 
+void Sensor::SetWire(TwoWire &iWire)
 {
     sWire = iWire;
 }
@@ -78,7 +78,7 @@ bool Sensor::beginSensors()
         delay(1);
         // we use standard Wakeup procedure to start single sensors
         // for (uint8_t lCounter = 0; lCounter < sNumSensors; lCounter++)
-        //     lResult = sSensors[lCounter]->begin() && lResult;
+            // lResult = sSensors[lCounter]->begin() && lResult;
     }
     return lResult;
 }
