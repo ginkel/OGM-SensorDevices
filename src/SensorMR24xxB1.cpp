@@ -1,6 +1,6 @@
 // #include "IncludeManager.h"
 #ifdef PMMODULE
-#ifdef SERIAL_HF
+#ifdef HF_SENSOR_MR24xxB1
 #include <Arduino.h>
 #include <Wire.h>
 #include "SensorMR24xxB1.h"
@@ -83,7 +83,7 @@ SensorMR24xxB1::SensorMR24xxB1(uint16_t iMeasureTypes, uint8_t iAddress)
 
 void SensorMR24xxB1::defaultSensorParameters(int8_t iScenario, uint8_t iSensitivity)
 {
-    mDefaultScenario = iScenario; 
+    mDefaultScenario = iScenario;
     mDefaultSensitivity = iSensitivity;
 }
 
@@ -123,7 +123,7 @@ void SensorMR24xxB1::sensorLoopInternal()
     }
 }
 
-// this state engine calculates startup behaviour of HF sensor 
+// this state engine calculates startup behaviour of HF sensor
 // and sends default values as soon as the sensor can consume them
 void SensorMR24xxB1::sendDefaultSensorValues()
 {
@@ -146,7 +146,7 @@ void SensorMR24xxB1::sendDefaultSensorValues()
                     mHfSensorStartupStates = START_SCENARIO_RECEIVED;
                     SERIAL_DEBUG.print("Got Scenario at startup: ");
                     SERIAL_DEBUG.println(mScenario);
-                } 
+                }
                 else
                 {
                     sendCommand(RadarCmd_ReadScene);
@@ -163,7 +163,7 @@ void SensorMR24xxB1::sendDefaultSensorValues()
                     mHfSensorStartupStates = START_SENSITIVITY_RECEIVED;
                     SERIAL_DEBUG.print("Got Sensitivity at startup: ");
                     SERIAL_DEBUG.println(mSensitivity);
-                } 
+                }
                 else
                 {
                     sendCommand(RadarCmd_ReadSensitivity);
@@ -176,7 +176,7 @@ void SensorMR24xxB1::sendDefaultSensorValues()
             {
                 pSensorStateDelay = millis();
                 mHfSensorStartupStates = START_SCENARIO_SET;
-                if (mDefaultScenario >= 0 && mScenario != mDefaultScenario) 
+                if (mDefaultScenario >= 0 && mScenario != mDefaultScenario)
                 {
                     SERIAL_DEBUG.print("Setting Scenario: ");
                     SERIAL_DEBUG.println(mDefaultScenario);
@@ -190,7 +190,7 @@ void SensorMR24xxB1::sendDefaultSensorValues()
             {
                 pSensorStateDelay = millis();
                 mHfSensorStartupStates = START_SENSITIVITY_SET;
-                if (mDefaultSensitivity > 0 && mSensitivity != mDefaultSensitivity) 
+                if (mDefaultSensitivity > 0 && mSensitivity != mDefaultSensitivity)
                 {
                     SERIAL_DEBUG.print("Setting Sensitivity: ");
                     SERIAL_DEBUG.println(mDefaultSensitivity);
@@ -202,7 +202,7 @@ void SensorMR24xxB1::sendDefaultSensorValues()
             if (delayCheck(pSensorStateDelay, 1000))
             {
                 pSensorStateDelay = millis();
-                if ((mDefaultScenario < 0 || mScenario == mDefaultScenario) && (mDefaultSensitivity <= 0 || mSensitivity == mDefaultSensitivity)) 
+                if ((mDefaultScenario < 0 || mScenario == mDefaultScenario) && (mDefaultSensitivity <= 0 || mSensitivity == mDefaultSensitivity))
                 {
                     SERIAL_DEBUG.println("Setting HF-Sensor defaults OK!");
                     mHfSensorStartupStates = START_FINISHED;
@@ -220,13 +220,13 @@ void SensorMR24xxB1::sendDefaultSensorValues()
     }
 }
 
-// Packet: 
+// Packet:
 // 0x55 - Message head
 // ll   - data length low
 // hh   - data length high (currenty 0x00)
 // cmd  - command
-// adr0 - 
-// adr1 - 
+// adr0 -
+// adr1 -
 void SensorMR24xxB1::uartGetPacket()
 {
     uint8_t lCRCLo;
@@ -553,7 +553,7 @@ bool SensorMR24xxB1::getSensorData()
     return lResult;
 }
 
-const uint8_t cCRCHi[256] = 
+const uint8_t cCRCHi[256] =
 {
     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
@@ -579,7 +579,7 @@ const uint8_t cCRCHi[256] =
     0x00, 0xC1, 0x81, 0x40
 };
 
-const uint8_t cCRCLo[256] = 
+const uint8_t cCRCLo[256] =
 {
     0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7,
     0x05, 0xC5, 0xC4, 0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E,
@@ -620,7 +620,7 @@ void SensorMR24xxB1::calculateCrcLoHi(uint8_t *iFrame, uint16_t iLen, uint8_t &e
 }
 
 // commands sent to HF sensor
-// if length longer than command data (in writes): Parameter must be added 
+// if length longer than command data (in writes): Parameter must be added
 uint8_t cCommands[30] =
     {
          0x07, 0x00, 0x02, 0x05, 0x04, /* resetSensor */
@@ -660,7 +660,7 @@ void SensorMR24xxB1::sendCommand(uint8_t iCommandId, int8_t iValue /* = -1 */)
 #endif
 }
 
-bool SensorMR24xxB1::decodePresenceResult(uint8_t iResult, bool &ePresence, uint8_t &eMove, uint8_t &eFall, uint8_t &eAlarm) 
+bool SensorMR24xxB1::decodePresenceResult(uint8_t iResult, bool &ePresence, uint8_t &eMove, uint8_t &eFall, uint8_t &eAlarm)
 {
     ePresence = iResult & RADAR_PresenceMask;
     eMove = (iResult & RADAR_MoveMask) >> RADAR_MoveOffset;

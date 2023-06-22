@@ -29,6 +29,7 @@
 #define SENS_SCD41 9     // Temp/Hum/Co2
 #define SENS_MR24xxB1 10 // HF-Presence
 #define SENS_VEML7700 11 // Lux
+#define SENS_LD2410 12   // LD2410(B) HF-Presence
 
 enum SensorState
 {
@@ -53,7 +54,8 @@ enum MeasureType {
     Pres = 1024,
     Speed = 2048,
     Sensitivity = 4096,
-    Scenario = 8192
+    Scenario = 8192,
+    Distance = 16384
 };
 
 #if defined(SENSORMODULE) || defined(PMMODULE)
