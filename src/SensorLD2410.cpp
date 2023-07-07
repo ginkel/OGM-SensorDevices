@@ -1,4 +1,3 @@
-// #include "IncludeManager.h"
 #ifdef HF_SENSOR_LD2410
 #include "SensorLD2410.h"
 #include <Arduino.h>
