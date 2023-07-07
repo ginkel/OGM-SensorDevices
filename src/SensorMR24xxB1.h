@@ -112,6 +112,7 @@ class SensorMR24xxB1 : public Sensor
     bool begin() override;
     uint8_t getI2cSpeed() override;
     void defaultSensorParameters(int8_t iScenario, uint8_t iSensitivity);
+    void restartSensor() override;
     // void resetSensor();
     // void writeSensitivity(uint8_t iValue);
     // void readSensitivity();

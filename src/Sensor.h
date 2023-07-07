@@ -87,12 +87,12 @@ class Sensor
     virtual void sensorLoopInternal();
     virtual void sensorSaveState();
     // non blocking restart approach for a sensor
-    void restartSensor();
+    virtual void restartSensor();
     virtual bool begin(); // first initialization, may be blocking, should be called druing setup(), not during loop()
     void logResult(bool iResult);
 
   public:
-    // static 
+    // static
     static void SetWire(TwoWire &iWire);
     static Sensor* factory(uint8_t iSensorClass, MeasureType iMeasureType);
     static void sensorLoop();
@@ -102,7 +102,7 @@ class Sensor
     static void restartSensors();
     static bool beginSensors();
     static uint8_t getMaxI2cSpeed();
-    
+
     virtual uint8_t getI2cSpeed();
     virtual bool prepareTemperatureOffset(float iTempOffset);
     virtual std::string logPrefix();
