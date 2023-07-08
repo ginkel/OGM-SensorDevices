@@ -110,7 +110,8 @@ bool SensorLD2410::begin()
     logDebugP("SERIAL_HF is %srunnning", SERIAL_HF ? "" : "NOT ");
 
 #if defined(LD2410_DEBUG_DATA) || defined(LD2410_DEBUG_COMMANDS)
-    radar.debug(SERIAL_DEBUG);
+    Stream *virtualSerial = new OpenKNX::Log::VirtualSerial("LD2410");
+    radar.debug(*virtualSerial);
 #endif
 
     radar.begin(HF_LD2410_SERIAL, false);
