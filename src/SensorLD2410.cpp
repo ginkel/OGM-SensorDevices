@@ -62,6 +62,10 @@ void SensorLD2410::sensorLoopInternal()
                 currentPresence = nextPresence;
             }
         }
+        else
+        {
+            currentPresence = 0;
+        }
 
         isConnected |= connected;
     }
